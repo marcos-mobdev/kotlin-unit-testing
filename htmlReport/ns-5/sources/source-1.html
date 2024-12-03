@@ -1,0 +1,221 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MainActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.com.appforge.kotlinunittesting.view.activities</a>
+</div>
+
+<h1>Coverage Summary for Class: MainActivity (br.com.appforge.kotlinunittesting.view.activities)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MainActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MainActivity$binding$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">MainActivity$initializeObservables$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">MainActivity$sam$androidx_lifecycle_Observer$0</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/25)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.com.appforge.kotlinunittesting.view.activities
+&nbsp;
+&nbsp;import android.os.Bundle
+&nbsp;import androidx.activity.enableEdgeToEdge
+&nbsp;import androidx.appcompat.app.AppCompatActivity
+&nbsp;import androidx.core.view.ViewCompat
+&nbsp;import androidx.core.view.WindowInsetsCompat
+&nbsp;import androidx.lifecycle.ViewModel
+&nbsp;import androidx.lifecycle.ViewModelProvider
+&nbsp;import br.com.appforge.kotlinunittesting.R
+&nbsp;import br.com.appforge.kotlinunittesting.data.remote.api.RetrofitCustom
+&nbsp;import br.com.appforge.kotlinunittesting.data.remote.repository.UserRepositoryImpl
+&nbsp;import br.com.appforge.kotlinunittesting.databinding.ActivityMainBinding
+&nbsp;import br.com.appforge.kotlinunittesting.domain.UserUseCase
+&nbsp;import br.com.appforge.kotlinunittesting.view.viewModel.UserViewModel
+&nbsp;import br.com.appforge.kotlinunittesting.view.viewModel.UserViewModelFactory
+&nbsp;
+<b class="nc">&nbsp;class MainActivity : AppCompatActivity() {</b>
+&nbsp;
+<b class="nc">&nbsp;    private val binding by lazy{</b>
+<b class="nc">&nbsp;        ActivityMainBinding.inflate(layoutInflater)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private lateinit var userViewModel: UserViewModel
+&nbsp;
+&nbsp;
+&nbsp;    override fun onCreate(savedInstanceState: Bundle?) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState)</b>
+<b class="nc">&nbsp;        enableEdgeToEdge()</b>
+<b class="nc">&nbsp;        setContentView(binding.root)</b>
+<b class="nc">&nbsp;        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets -&gt;</b>
+<b class="nc">&nbsp;            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())</b>
+<b class="nc">&nbsp;            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)</b>
+<b class="nc">&nbsp;            insets</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        initialize()</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun onStart() {
+<b class="nc">&nbsp;        super.onStart()</b>
+<b class="nc">&nbsp;        userViewModel.getListUsers()</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun initialize() {
+<b class="nc">&nbsp;        initializeViews()</b>
+<b class="nc">&nbsp;        initializeObservables()</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun initializeObservables() {
+<b class="nc">&nbsp;        userViewModel.listUsers.observe(this){ listUsers -&gt;</b>
+<b class="nc">&nbsp;            var usersData = &quot;&quot;</b>
+<b class="nc">&nbsp;            listUsers.forEach { user-&gt;</b>
+<b class="nc">&nbsp;                usersData += &quot;${user.firstName} - ${user.age}\n&quot;</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;            binding.listText.text = usersData</b>
+&nbsp;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun initializeViews(){
+<b class="nc">&nbsp;        val dummyAPIService = RetrofitCustom.getDummyAPI()</b>
+<b class="nc">&nbsp;        val userRepository = UserRepositoryImpl(dummyAPIService)</b>
+<b class="nc">&nbsp;        val userUseCase = UserUseCase(userRepository)</b>
+<b class="nc">&nbsp;        userViewModel = ViewModelProvider(this, UserViewModelFactory(userUseCase))[UserViewModel::class.java]</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-12-03 16:57</div>
+</div>
+</body>
+</html>
