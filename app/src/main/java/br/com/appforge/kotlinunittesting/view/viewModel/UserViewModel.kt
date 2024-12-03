@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.appforge.kotlinunittesting.data.remote.dto.User
 import br.com.appforge.kotlinunittesting.domain.UserUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserViewModel(
@@ -18,7 +19,7 @@ class UserViewModel(
         get() = _listUsers
 
     fun getListUsers(){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val listUsers = userUseCase()
             _listUsers.postValue(listUsers)
         }

@@ -28,7 +28,9 @@ class UserRepositoryImplTest {
 
     @Before
     fun setUp() {
+        //Mock
         MockitoAnnotations.openMocks(this)
+        //Fake
         dummyAPIServiceFake = DummyApiServiceFake()
     }
 
